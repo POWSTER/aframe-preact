@@ -8,17 +8,17 @@ function titleToKebabCase(str) {
  * `click`. `onIntersectionCleared` would prescribe to register event handler
  * for `intersection-cleared`.
  *
- * @param {object} possibleEventHandlers - React props object.
+ * @param {object} possibleEventHandlers - Preact props object.
  * @returns {object} Events to register.
  */
 export function getEventMappings(possibleEventHandlers) {
   return Object.keys(possibleEventHandlers)
-    .filter(reactEventName => (
-      !!reactEventName.match(/^on[A-Z]/))
-      && possibleEventHandlers[reactEventName].constructor === Function
-    ).reduce((handlers, reactEventName) => {
-      const aframeEventName = titleToKebabCase(reactEventName.replace(/^on/, ''));
-      handlers[aframeEventName] = possibleEventHandlers[reactEventName];
+    .filter(preactEventName => (
+      !!preactEventName.match(/^on[A-Z]/))
+      && possibleEventHandlers[preactEventName].constructor === Function
+    ).reduce((handlers, preactEventName) => {
+      const aframeEventName = titleToKebabCase(preactEventName.replace(/^on/, ''));
+      handlers[aframeEventName] = possibleEventHandlers[preactEventName];
       return handlers;
     }, {});
 }

@@ -1,18 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { h, Component } from 'preact';
 import styleParser from 'style-attr';
 import {getEventMappings} from './eventUtils.js';
 
 /**
  * <a-entity>
  */
-export class Entity extends React.Component {
-  static propTypes = {
-    children: React.PropTypes.any,
-    events: React.PropTypes.object,
-    mixin: React.PropTypes.string,
-    primitve: React.PropTypes.string
-  };
+export class Entity extends Component {
 
   attachEvents = el => {
     if (!el) { return; }
@@ -30,7 +23,7 @@ export class Entity extends React.Component {
       if (this.props[propName]) { otherProps[propName] = this.props[propName]; }
     });
 
-    return React.createElement(
+    return h(
       this.props.primitive || 'a-entity',
       Object.assign(
         {ref: this.attachEvents},
@@ -45,10 +38,7 @@ export class Entity extends React.Component {
 /**
  * <a-scene>
  */
-export class Scene extends React.Component {
-  static propTypes = {
-    events: React.PropTypes.object
-  };
+export class Scene extends Component {
 
   attachEvents = el => {
     if (!el) { return; }
@@ -78,7 +68,7 @@ export class Scene extends React.Component {
 }
 
 /**
- * Serialize React props to A-Frame components.
+ * Serialize Preact props to A-Frame components.
  *
  * {primitive: box; width: 10} to 'primitive: box; width: 10'
  */

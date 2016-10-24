@@ -1,7 +1,7 @@
 {
-  "name": "aframe-react",
-  "version": "3.4.0",
-  "description": "Build virtual reality experiences with A-Frame and React.",
+  "name": "aframe-preact",
+  "version": "0.0.1",
+  "description": "Build virtual reality experiences with A-Frame and Preact.",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel --presets es2015,react,stage-0 src -d dist",
@@ -26,37 +26,30 @@
     "babel-register": "^6.16.3",
     "jest": "^16.0.1",
     "mocha": "^3.1.2",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-test-renderer": "^15.3.2"
+    "preact": "^6.3.0"
   },
-  "peerDependencies": {
-    "react": "*",
-    "react-dom": "*"
+  "dependencies": {
+    "style-attr": "^1.2.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ngokevin/aframe-react.git"
+    "url": "git+https://github.com/POWSTER/aframe-preact.git"
   },
   "keywords": [
     "aframe",
-    "react",
+    "preact",
     "vr",
     "a-frame",
     "aframevr",
     "mozvr",
-    "reactvr",
-    "react-component",
+    "preactvr",
+    "preact-component",
     "virtual-reality",
     "webvr"
   ],
-  "author": "Kevin Ngo <kngo@mozilla>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ngokevin/aframe-react/issues"
+    "url": "https://github.com/POWSTER/aframe-preact/issues"
   },
-  "homepage": "https://github.com/ngokevin/aframe-react#readme",
-  "dependencies": {
-    "style-attr": "^1.2.0"
-  }
+  "homepage": "https://github.com/POWSTER/aframe-preact#readme"
 }
