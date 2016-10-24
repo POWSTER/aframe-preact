@@ -1,35 +1,16 @@
-<h1 align="center">aframe-react</h1>
+<h1 align="center">aframe-preact</h1>
 
 <h5 align="center">
-  Build virtual reality experiences with <b><a href="https://aframe.io">A-Frame</a></b> and <b><a href="https://facebook.github.io/react/">React</a></b>.
+  Build virtual reality experiences with <b><a href="https://aframe.io">A-Frame</a></b> and <b><a href="https://preactjs.com/">Preact</a></b>.
 </h5>
-
-<div align="center">
-  <a href="https://npmjs.org/package/aframe-react">
-    <img src="https://img.shields.io/npm/v/aframe-react.svg?style="flat-square" alt="npm" />
-  </a>
-  <a href="https://npmjs.org/package/aframe-react">
-    <img src="https://img.shields.io/npm/dm/aframe-react.svg?style="flat-square" alt="npm" />
-  </a>
-  <a href="http://travis-ci.org/ngokevin/aframe-react">
-    <img src="https://secure.travis-ci.org/ngokevin/aframe-react.svg?branch=master" alt="Travis CI" />
-  </a>
-</div>
-
-<br/>
-<div align="center">
-  <img src="https://cloud.githubusercontent.com/assets/674727/19173367/d6590832-8bdb-11e6-9336-658b00bc0460.png" height="320">
-</div>
-<br/>
 
 ```js
 import 'aframe';
 import 'aframe-bmfont-text-component';
-import {Entity, Scene} from 'aframe-react';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import {Entity, Scene} from 'aframe-preact';
+import {h, Component} from 'preact';
 
-class VRScene extends React.Component {
+class VRScene extends Component {
   render () {
     return (
       <Scene>
@@ -41,19 +22,19 @@ class VRScene extends React.Component {
 }
 ```
 
-See [aframe-react-boilerplate](https://github.com/ngokevin/aframe-react-boilerplate)
+See [aframe-preact-boilerplate](https://github.com/POWSTER/aframe-preact-boilerplate)
 for a basic example.
 
 ## Installation
 
 ```
-npm install --save aframe aframe-react react
+npm install --save aframe aframe-preact preact
 ```
 
-## What `aframe-react` Does
+## What `aframe-preact` Does
 
 [A-Frame](https://aframe.io) is a web framework for building virtual reality
-experiences. Since A-Frame is built on top of the DOM, React is able to sit
+experiences. Since A-Frame is built on top of the DOM, Preact is able to sit
 cleanly on top of A-Frame.
 
 If you are not familiar with the specifics of A-Frame, A-Frame is an
@@ -65,19 +46,19 @@ and functionality.
 
 In A-Frame, HTML attributes map to *components* which are composable modules
 that are plugged into **<a-entity>**s to attach appearance, behavior, and
-functionality. `aframe-react` is a very thin layer on top of A-Frame to bridge
-with React. It provides an `<Entity/>` React component that serializes React
+functionality. `aframe-preact` is a very thin layer on top of A-Frame to bridge
+with Preact. It provides an `<Entity/>` Preact component that serializes Preact
 props to A-Frame components:
 
 ```js
-// A-Frame + React
+// A-Frame + Preact
 <Entity geometry={{primitive: 'box', width: 5}}/>
 
 // to A-Frame.
 <a-entity geometry="primitive: box; width: 5"></a-entity>
 ```
 
-### Built with `aframe-react`
+### Built with `aframe-preact`
 
 <a href="http://360syria.com">
 <img width="320" alt="Fear of the Sky by Amnesty International UK" src="https://cloud.githubusercontent.com/assets/674727/19344336/a5830bbe-90ee-11e6-9f68-2c23a9be4e95.png">
@@ -86,39 +67,39 @@ props to A-Frame components:
 ### Best Practices
 
 For performance reasons, it is heavily recommended to let A-Frame handle the
-3D, VR, rendering, and behavior pieces, and let React only handle what it's
+3D, VR, rendering, and behavior pieces, and let Preact only handle what it's
 good at: views and state binding.
 
 For instance, if you wanted to do an animation, do not try to tween a property
-in React land. This is slower due to creating another `requestAnimationFrame`,
-being at the whims of React batched updates, and also due to the overhead of
-passing a property from React to HTML. A-Frame already has a render loop and
+in Preact land. This is slower due to creating another `requestAnimationFrame`,
+being at the whims of Preact batched updates, and also due to the overhead of
+passing a property from Preact to HTML. A-Frame already has a render loop and
 `requestAnimationFrame` set up, write an A-Frame component using the `tick`
 method to hook into the render loop.
 
-Try to use React sparingly in regards to the actual 3D and VR bits. React has a
+Try to use Preact sparingly in regards to the actual 3D and VR bits. Preact has a
 bit of overhead and some concerns with the batched updates since it was created
 with the 2D DOM in mind. Do use it for as a view layer and to manage state.
 
-### Why A-Frame with React?
+### Why A-Frame with Preact?
 
-React was built for large web apps to improve DOM performance. It wasn't meant
-for development of 3D scenes by itself. By attempting to wrap React directly
+Preact was built for large web apps to improve DOM performance. It wasn't meant
+for development of 3D scenes by itself. By attempting to wrap Preact directly
 over three.js or WebGL, you run into a lot of performance issues.
 
 #### Hooks into the Render Loop
 
 Without a framework focused around 3D and VR, there is **no structure to hook
-into the render loop**. React implementations generally just create a new
-`requestAnimationFrame` within the React components, which is very bad for
-performance. Because React only wants data to flow down with no child-to-parent
+into the render loop**. Preact implementations generally just create a new
+`requestAnimationFrame` within the Preact components, which is very bad for
+performance. Because Preact only wants data to flow down with no child-to-parent
 communication, entities have a hard time communicating to the scene to hook new
 behaviors into the render loop.
 
 A-Frame, however, provides a `tick` method for components to hook into the
 scene render loop, and these components can be attached to any entity. Here
 is an example of using A-Frame to provide these facilities across multiple
-React components. Note how we can write a component that can be applied to
+Preact components. Note how we can write a component that can be applied to
 different objects.
 
 ```js
@@ -136,14 +117,14 @@ AFRAME.registerComponent('rotate-on-tick', {
 
 #### Provides a DOM
 
-By providing a DOM, it gives React the purpose it was meant for, to provide
+By providing a DOM, it gives Preact the purpose it was meant for, to provide
 quicker DOM updates. Although ideally, we use A-Frame directly since there may
-be performance quirks with React batching its updates which we don't want in
+be performance quirks with Preact batching its updates which we don't want in
 90fps+ real-time rendering.
 
 #### Composability
 
-A-Frame provides composability over inheritance.  React is based around
+A-Frame provides composability over inheritance.  Preact is based around
 inheritance: to create a new type of object, we extend an existing one. In game
 development where objects are more complex, it is more appropriate to compose
 behavior in order to more easily build new types of objects.
@@ -152,21 +133,19 @@ behavior in order to more easily build new types of objects.
 
 Lastly, A-Frame is backed by a large community and ecosystem of tools and
 components. Don't be limited by what an assorted library provides when an
-extensible framework can provide much more. There's even a [Redux
-component](https://github.com/ngokevin/kframe/tree/master/components/redux) for
-binding to A-Frame without using `react-redux`.
+extensible framework can provide much more.
 
-`tl;dr`: Wrapping React directly around three.js/WebGL cuts corners and suffers
+`tl;dr`: Wrapping Preact directly around three.js/WebGL cuts corners and suffers
 as a result. A-Frame provides a proper bridge.
 
 ### API
 
-`aframe-react` ships with `Scene` and `Entity` React components, which are all
+`aframe-preact` ships with `Scene` and `Entity` Preact components, which are all
 we really need.
 
 #### \<Scene {...components}/>
 
-The `Scene` React component wraps `<a-scene>`:
+The `Scene` Preact component wraps `<a-scene>`:
 
 ```html
 <Scene>
@@ -176,7 +155,7 @@ The `Scene` React component wraps `<a-scene>`:
 
 #### \<Entity {...components}/>
 
-The `Entity` React component wraps `<a-entity>`.
+The `Entity` Preact component wraps `<a-entity>`.
 
 ```html
 <Entity geometry={{primitive: 'box'}} material='color: red'/>
@@ -184,7 +163,7 @@ The `Entity` React component wraps `<a-entity>`.
 
 #### Primitives
 
-To render A-Frame primitives with all of the `aframe-react` magic, pass the
+To render A-Frame primitives with all of the `aframe-preact` magic, pass the
 `primitive` prop with the name of the primitive:
 
 ```html
@@ -199,7 +178,7 @@ To register an event handler, use the `events` prop:
 <Entity events={{click: () => { console.log('Clicked!'); }}}/>
 ```
 
-Or use the React-style syntactic sugar, which will infer the event name to
+Or use the Preact-style syntactic sugar, which will infer the event name to
 register:
 
 ```html
